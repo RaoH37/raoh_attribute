@@ -4,10 +4,6 @@ require_relative 'test_helper'
 require 'mocha/minitest'
 
 class TestRaohTypeString < Minitest::Test
-  def test_has_version_number
-    refute_nil RaohType.gem_version
-  end
-
   def test_getter_string
     attribute = RaohType::Type.new(String)
     attribute.set('Maxime')
@@ -17,12 +13,14 @@ class TestRaohTypeString < Minitest::Test
   def test_getter_string_transform_downcase
     attribute = RaohType::Type.new(String, transform: %i[downcase!])
     attribute.set('Maxime')
+    refute attribute.get == 'Maxime'
     assert attribute.get == 'maxime'
   end
 
   def test_getter_string_transform_upcase
     attribute = RaohType::Type.new(String, transform: %i[upcase!])
     attribute.set('Maxime')
+    refute attribute.get == 'Maxime'
     assert attribute.get == 'MAXIME'
   end
 

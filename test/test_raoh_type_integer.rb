@@ -39,6 +39,12 @@ class TestRaohTypeInteger < Minitest::Test
     assert attribute.get == 543
   end
 
+  def test_getter_array_cast_as_integer
+    attribute = RaohType::Type.new(Integer)
+    attribute.set([1, 2, 3])
+    assert attribute.get == 123
+  end
+
   def test_getter_string_cast_as_negative_integer
     attribute = RaohType::Type.new(Integer)
     attribute.set('-543')
