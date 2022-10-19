@@ -22,6 +22,7 @@ module RaohType
       return self if @immutable && !@obj.nil?
 
       classify(obj)
+
       do_transform
     end
 
