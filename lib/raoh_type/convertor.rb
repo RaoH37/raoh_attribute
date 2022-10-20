@@ -29,7 +29,7 @@ module RaohType
 
         new_obj
       rescue StandardError => e
-        STDERR.puts e.message
+        warn e.message
         raise CastError.new(obj, klass)
       end
 

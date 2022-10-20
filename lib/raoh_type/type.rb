@@ -6,20 +6,21 @@ module RaohType
   class Type
     attr_reader :klass, :transform, :immutable, :default, :metadata
 
-    def initialize(klass, transform: %i[], immutable: false, default: nil, metadata: {})
+    def initialize(klass, options = {})
       @obj = nil
       @klass = klass
-      @immutable = immutable
-      @metadata = metadata
+      @immutable = options.fetch(:immutable, false)
+      @metadata = options.fetch(:metadata, {})
+      @constraints = Constraints.new(options.fetch(:constraints, {}))
 
-      extend(Bool) if klass == TrueClass || klass == FalseClass
+      extend(Bool) if [TrueClass, FalseClass].include?(klass)
 
-      make_transform(transform)
-      make_default(default)
+      make_transform(options.fetch(:transform, %i[]))
+      make_default(options.fetch(:default, nil))
     end
 
     def set(obj)
-      return self if @immutable && !@obj.nil?
+      return self if obj == @obj || (@immutable && !@obj.nil?)
 
       classify(obj)
 
@@ -43,6 +44,7 @@ module RaohType
 
     def classify(obj)
       @obj = Convertor.convert(obj, @klass)
+      @constraints.check!(@obj)
       @obj.freeze if @immutable
 
       self
