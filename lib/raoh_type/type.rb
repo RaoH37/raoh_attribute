@@ -8,6 +8,7 @@ module RaohType
 
     def initialize(klass, options = {})
       @obj = nil
+      @initial_obj = nil
       @klass = klass
       @immutable = options.fetch(:immutable, false)
       @metadata = options.fetch(:metadata, {})
@@ -22,13 +23,22 @@ module RaohType
     def set(obj)
       return self if obj == @obj || (@immutable && !@obj.nil?)
 
-      classify(obj)
+      @obj = do_transform(classify(obj))
+      @constraints.check!(@obj)
+      @obj.freeze if @immutable
+      @initial_obj = @obj.dup if @initial_obj.nil? && !@obj.nil?
 
-      do_transform
+      self
     end
 
     def get
       @obj || @default
+    end
+
+    def changed?
+      return false if @obj.nil?
+
+      @obj != @initial_obj
     end
 
     private
@@ -43,21 +53,17 @@ module RaohType
     end
 
     def classify(obj)
-      @obj = Convertor.convert(obj, @klass)
-      @constraints.check!(@obj)
-      @obj.freeze if @immutable
-
-      self
+      Convertor.convert(obj, @klass)
     end
 
-    def do_transform
-      return self if @transform.empty?
+    def do_transform(obj)
+      return obj if @transform.empty?
 
-      @transform.select { |method_name| @obj.respond_to?(method_name) }.each do |method_name|
-        @obj = @obj.send(method_name)
+      @transform.select { |method_name| obj.respond_to?(method_name) }.each do |method_name|
+        obj = obj.send(method_name)
       end
 
-      self
+      obj
     end
 
     def method_missing(method_name, *args, &block)

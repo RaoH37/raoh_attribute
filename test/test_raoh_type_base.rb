@@ -7,4 +7,9 @@ class TestRaohTypeBase < Minitest::Test
   def test_has_version_number
     refute_nil RaohType.gem_version
   end
+
+  def test_self_chain
+    attribute = RaohType::Type.new(String).set('Maxime')
+    assert attribute.get == 'Maxime'
+  end
 end
