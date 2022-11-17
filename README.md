@@ -1,2 +1,2 @@
 # raoh_type
-Force type by conversation and transformation and value constraint
+Force type by type conversion and transformation and value constraint

@@ -3,7 +3,7 @@
 require 'date'
 require 'time'
 
-module RaohType
+module Raoh
   class Convertor
     class << self
       METHOD_CONVERTOR_H = {

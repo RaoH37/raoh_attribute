@@ -1,15 +1,29 @@
 # frozen_string_literal: true
 
-module RaohType
+module Raoh
   class Constraints
+    OPTIONS = {
+      min_size: nil,
+      max_size: nil,
+      min_value: nil,
+      max_value: nil,
+      format: nil,
+      only: [],
+      except: []
+    }.freeze
     def initialize(options)
-      @min_size = options.fetch(:min_size, nil)
-      @max_size = options.fetch(:max_size, nil)
-      @min_value = options.fetch(:min_value, nil)
-      @max_value = options.fetch(:max_value, nil)
-      @format = options.fetch(:format, nil)
-      @only = options.fetch(:only, [])
-      @except = options.fetch(:except, [])
+      # @min_size = options.fetch(:min_size, nil)
+      # @max_size = options.fetch(:max_size, nil)
+      # @min_value = options.fetch(:min_value, nil)
+      # @max_value = options.fetch(:max_value, nil)
+      # @format = options.fetch(:format, nil)
+      # @only = options.fetch(:only, [])
+      # @except = options.fetch(:except, [])
+
+      OPTIONS.each do |key, value|
+        options_value = options.fetch(key, value)
+        instance_variable_set("@#{key}", options_value)
+      end
     end
 
     def check!(obj)

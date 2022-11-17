@@ -2,8 +2,8 @@
 
 require_relative 'extends/type_bool'
 
-module RaohType
-  class Type
+module Raoh
+  class Attribute
     attr_reader :klass, :transform, :immutable, :default, :metadata
 
     def initialize(klass, options = {})

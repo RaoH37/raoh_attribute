@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module RaohType
+module Raoh
   module Bool
     BOOL_STR_A = %w[true false].freeze
     BOOL_NUM_A = [1, 0].freeze

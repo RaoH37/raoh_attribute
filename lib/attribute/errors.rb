@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-module RaohType
-  class Error < StandardError; end
-
+module Raoh
   class CastError < StandardError
     def initialize(obj, klass)
       super("#{obj} can't be cast as #{klass}")
