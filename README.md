@@ -1,10 +1,10 @@
-# raoh_type
+# raoh_attribute
 Force type by type conversion and transformation and value constraint
 
 ## Example
 
 ```ruby
-require 'raoh_type'
+require 'raoh_attribute'
 
 attribute = Raoh::Attribute.new(String, transform: %i[downcase!])
 attribute.set('Maxime')
