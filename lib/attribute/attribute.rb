@@ -41,6 +41,10 @@ module Raoh
       @obj != @initial_obj
     end
 
+    def was
+      @initial_obj
+    end
+
     private
 
     def make_transform(transform)
