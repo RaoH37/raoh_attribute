@@ -3,14 +3,14 @@
 require_relative 'lib/attribute/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'raoh_type'
+  spec.name = 'raoh_attribute'
   spec.version = Raoh::Attribute.gem_version
   spec.authors = ['Maxime Désécot']
   spec.email = ['maxime.desecot@gmail.com']
 
-  spec.summary = 'RAOH Type'
+  spec.summary = 'RAOH Attribute'
   spec.description = 'Simple class to automatically convert and transform an object into another type'
-  spec.homepage = 'https://github.com/RaoH37/raoh_type'
+  spec.homepage = 'https://github.com/RaoH37/raoh_attribute'
   spec.license = 'GPL-3.0'
   spec.required_ruby_version = '>= 2.6.0'
 
